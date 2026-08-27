@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'flow',label:'Oil flow',unit:'L/min',value:40,min:0},{id:'bore',label:'Cylinder bore',unit:'mm',value:80,min:0.1},{id:'rod',label:'Rod diameter',unit:'mm',value:45,min:0}];
+---
+<ToolLayout title="Hydraulic Cylinder Speed Calculator" description="Estimate cylinder extension and retraction speed from flow, bore diameter and rod diameter." formula="Speed (mm/s) = flow (L/min) × 16,666.67 ÷ effective area (mm²)">
+  <Fragment slot="tool"><CalculatorForm kind="cylinder-speed" fields={fields} resultLabel="Extension speed" resultUnit="mm/s" secondaryLabel="Retraction speed" secondaryUnit="mm/s" /></Fragment>
+  <h2>Why retraction is normally faster</h2><p>On a conventional single-rod cylinder, the rod reduces return-side area. With the same incoming flow, the smaller annular area produces a higher retraction speed.</p><div class="note">Real cylinder speed depends on available pump flow under load, valve metering, hose losses and leakage. Regenerative circuits behave differently.</div><h2>From speed to cycle time</h2><p>Once you know approximate speed, divide stroke length by speed to estimate travel time. Add acceleration, deceleration and valve-response time for a realistic machine cycle.</p>
+</ToolLayout>

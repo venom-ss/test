@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+const ticks = Array.from({length: 13}, (_, i) => i);
+const calculators = [
+  ['CF','Cylinder Force','Calculate push and pull force from bore, rod diameter and pressure.','/calculators/cylinder-force'],
+  ['PF','Pump Flow','Convert pump displacement and shaft RPM into theoretical flow.','/calculators/pump-flow'],
+  ['MR','Motor RPM','Estimate hydraulic motor speed from flow and displacement.','/calculators/motor-rpm'],
+  ['HP','Hydraulic Power','Calculate hydraulic power from pressure and flow.','/calculators/hydraulic-power'],
+  ['MT','Motor Torque','Estimate theoretical motor torque from pressure and displacement.','/calculators/motor-torque'],
+  ['HV','Hose Velocity','Check oil velocity from hose inside diameter and flow.','/calculators/hose-velocity'],
+  ['CV','Cylinder Speed','Estimate cylinder extension speed from flow and bore size.','/calculators/cylinder-speed'],
+  ['PC','Pressure Convert','Convert bar, psi and MPa instantly.','/calculators/pressure-converter'],
+  ['FC','Flow Convert','Convert L/min, US gpm and m³/h.','/calculators/flow-converter']
+];
+---
+<BaseLayout title="Hydraulic Toolbox — Calculators, References & Field Guides" description="Free hydraulic calculators, fitting and thread references, component identification guides and practical troubleshooting notes for technicians and engineers.">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Built for the workshop, not the textbook</span>
+        <h1>Hydraulic answers. <span>Without the guesswork.</span></h1>
+        <p class="lead">Fast calculators, dimensional references and practical field guides for people who diagnose, size and source hydraulic components.</p>
+        <div class="hero-actions"><a class="btn primary" href="#calculators">Open calculators →</a><a class="btn" href="/reference/bsp-thread">Identify a thread</a></div>
+        <div class="hero-proof"><span><i></i>No sign-up for calculators</span><span><i></i>Mobile workshop friendly</span><span><i></i>Engineering formulas shown</span></div>
+      </div>
+      <div class="hydraulic-panel" aria-label="Hydraulic pressure gauge illustration">
+        <span class="circuit-node node-a"></span><span class="circuit-node node-b"></span>
+        <div class="gauge">
+          {ticks.map((tick) => <i class:list={['tick', tick % 3 === 0 && 'major']} style={`transform:rotate(${tick * 20 - 120}deg)`}></i>)}
+          <span class="gauge-label">PRESSURE</span>
+        </div>
+        <div class="panel-readout"><div class="readout"><small>Flow</small><strong>62.4 L/min</strong></div><div class="readout"><small>Pressure</small><strong>210 bar</strong></div><div class="readout"><small>Power</small><strong>21.8 kW</strong></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compact">
+    <div class="container"><div class="category-strip"><div class="category"><strong>01 / Calculate</strong><span>Force, flow, power, speed, torque</span></div><div class="category"><strong>02 / Identify</strong><span>Threads, fittings, pumps, motors</span></div><div class="category"><strong>03 / Diagnose</strong><span>Heat, drift, noise, slow movement</span></div><div class="category"><strong>04 / Source</strong><span>Specs, alternatives, RFQ-ready data</span></div></div></div>
+  </section>
+
+  <section class="section" id="calculators">
+    <div class="container">
+      <div class="section-heading row"><div><span class="eyebrow">Free tools</span><h2 style="margin-top:10px">Hydraulic calculators</h2></div><p class="muted">Fast, transparent formulas — no black box.</p></div>
+      <div class="card-grid">
+        {calculators.map(([icon,title,desc,url]) => <a class="card" href={url}><span class="card-icon">{icon}</span><h3>{title}</h3><p>{desc}</p><div class="card-meta"><span>Free calculator</span><strong>Open →</strong></div></a>)}
+      </div>
+      <AdSlot format="horizontal" />
+    </div>
+  </section>
+
+  <section class="section" id="reference">
+    <div class="container">
+      <div class="section-heading"><span class="eyebrow">Workshop reference</span><h2>Measure it. Match it.</h2><p class="lead">Reference pages are designed around what you can actually measure in the field: outside diameter, pitch, sealing face and port geometry.</p></div>
+      <div class="card-grid">
+        <a class="card" href="/reference/bsp-thread"><span class="card-icon">B</span><h3>BSP / BSPT thread chart</h3><p>Common BSP nominal sizes, outside diameters and pitch values.</p><div class="card-meta"><span>Reference</span><strong>View chart →</strong></div></a>
+        <a class="card" href="/guides/hose-sizing"><span class="card-icon">H</span><h3>Hydraulic hose sizing</h3><p>Choose a starting hose ID from flow and target oil velocity.</p><div class="card-meta"><span>Guide</span><strong>Read →</strong></div></a>
+        <a class="card" href="/guides/pump-identification"><span class="card-icon">P</span><h3>Identify a hydraulic pump</h3><p>A field checklist for reading nameplates, shafts, ports and rotation.</p><div class="card-meta"><span>Guide</span><strong>Read →</strong></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="guides">
+    <div class="container">
+      <div class="cta-band"><div><span class="eyebrow">Future paid layer</span><h2 style="font-size:clamp(1.7rem,4vw,2.8rem);margin-top:10px">Can’t identify the component?</h2><p>The site is already structured for a paid photo/nameplate identification service and downloadable workshop reference packs — higher-value monetization beyond display ads.</p></div><a class="btn primary" href="/services">See service concept →</a></div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'flow',label:'Oil flow',unit:'L/min',value:60,min:0},{id:'displacement',label:'Motor displacement',unit:'cc/rev',value:50,min:0.1},{id:'efficiency',label:'Volumetric efficiency',unit:'%',value:90,min:1,max:100}];
+---
+<ToolLayout title="Hydraulic Motor RPM Calculator" description="Estimate hydraulic motor speed from oil flow, motor displacement and volumetric efficiency." formula="RPM = flow (L/min) × 1,000 × volumetric efficiency ÷ displacement (cc/rev)">
+  <Fragment slot="tool"><CalculatorForm kind="motor-rpm" fields={fields} resultLabel="Estimated motor speed" resultUnit="rpm" secondaryLabel="Theoretical speed" secondaryUnit="rpm" /></Fragment>
+  <h2>Motor speed from flow</h2><p>A hydraulic motor's theoretical speed is set by the amount of oil entering it and its displacement per revolution. Internal leakage means actual shaft speed is normally lower than the simple theoretical value.</p><div class="note">Always verify the motor's continuous and intermittent speed limits. Excessive RPM can damage bearings, seals or rotating groups even if pressure is within range.</div><h2>Fan-drive use case</h2><p>For hydraulic fan drives, this calculation helps compare a replacement motor's displacement with available flow. A smaller displacement generally produces higher speed at the same flow, while a larger displacement produces lower speed.</p>
+</ToolLayout>

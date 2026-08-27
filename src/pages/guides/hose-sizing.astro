@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+---
+<BaseLayout title="Hydraulic Hose Sizing Guide" description="A practical hydraulic hose sizing guide based on flow, inside diameter, oil velocity, line function and pressure drop.">
+  <div class="container"><div class="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#guides">Guides</a><span>/</span><strong>Hose sizing</strong></div></div>
+  <section class="page-hero"><div class="container"><span class="eyebrow">Field guide</span><h1 style="font-size:clamp(2.4rem,6vw,4.7rem);margin-top:12px">How to size a hydraulic hose</h1><p class="lead">Pressure rating is only one part of hose selection. Flow, inside diameter, velocity, pressure loss, oil temperature and line function all matter.</p></div></section>
+  <section class="section compact"><div class="container tool-shell"><article class="article">
+    <h2>Start with flow and line function</h2><p>A suction line, pressure line and return line can carry the same flow but need different design priorities. Suction lines are especially sensitive to excessive velocity and pressure drop because poor inlet conditions can contribute to cavitation.</p>
+    <h2>Use actual hose inside diameter</h2><p>Dash size is a useful ordering convention, but the actual internal diameter can vary with hose construction. When pressure drop matters, use the manufacturer's ID and pressure-loss data rather than assuming every hose with the same dash number has identical internal geometry.</p>
+    <div class="note">A larger bore lowers oil velocity and friction loss, but it also increases cost, weight and oil volume. Sizing is a balance rather than simply choosing the largest hose available.</div>
+    <h2>Check velocity first, then pressure drop</h2><p>The velocity calculator is a quick sanity check. Once you have a candidate size, use the hose manufacturer's pressure-drop chart for the actual hose type, oil viscosity, length and fitting arrangement.</p>
+    <p style="margin-top:22px"><a class="btn primary" href="/calculators/hose-velocity">Open hose velocity calculator →</a></p>
+    <h2>Do not forget fittings and routing</h2><p>Tight elbows, adapters, long runs and undersized quick couplings can add significant restriction. Routing also affects bend radius, abrasion, heat exposure and impulse life. A correctly sized hose installed badly is still a poor hydraulic line.</p>
+  </article><aside class="sidebar"><AdSlot /><div class="side-card"><h3>Related calculation</h3><p>Estimate system hydraulic power from pressure and flow.</p><a href="/calculators/hydraulic-power" style="display:inline-block;margin-top:10px;color:var(--accent-2);font-weight:800">Hydraulic power →</a></div></aside></div></section>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'bore',label:'Cylinder bore',unit:'mm',value:80,min:1},{id:'rod',label:'Rod diameter',unit:'mm',value:45,min:0},{id:'pressure',label:'Working pressure',unit:'bar',value:180,min:0}];
+---
+<ToolLayout title="Hydraulic Cylinder Force Calculator" description="Calculate theoretical hydraulic cylinder push and pull force from bore diameter, rod diameter and working pressure." formula="Force (kN) = pressure (bar) × effective piston area (mm²) ÷ 10,000">
+  <Fragment slot="tool"><CalculatorForm kind="cylinder-force" fields={fields} resultLabel="Push force" resultUnit="kN" secondaryLabel="Pull force" secondaryUnit="kN" /></Fragment>
+  <h2>How to use this cylinder force calculator</h2><p>Enter the piston bore, rod diameter and pressure at the cylinder port. The push value uses the full piston area. Pull force uses the annular area after subtracting the rod area.</p><div class="note">This is theoretical force. Seal friction, back pressure, mechanical geometry and pressure losses reduce the force available at the machine.</div><h2>Push vs. pull force</h2><p>A single-rod cylinder produces more force while extending than retracting at the same pressure because the rod reduces effective area on the return side. That difference becomes larger as rod diameter increases.</p><h2>Practical check</h2><p>For component selection, compare calculated force with the actual load and include a suitable safety margin. Also verify cylinder pressure rating, rod buckling risk, mount geometry and system relief-valve setting.</p>
+</ToolLayout>

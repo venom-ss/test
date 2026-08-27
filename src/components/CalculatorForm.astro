@@ -1,0 +1,95 @@
+---
+interface Field { id: string; label: string; unit: string; value: number; min?: number; max?: number; step?: number; }
+interface Props { kind: string; fields: Field[]; resultLabel: string; resultUnit: string; secondaryLabel?: string; secondaryUnit?: string; }
+const { kind, fields, resultLabel, resultUnit, secondaryLabel, secondaryUnit } = Astro.props;
+const uid = `calc-${kind}`;
+---
+<div class="calculator" id={uid} data-kind={kind}>
+  <div class="tool-grid">
+    {fields.map((field) => <div class="field"><label for={`${uid}-${field.id}`}>{field.label}</label><div class="input-wrap"><input id={`${uid}-${field.id}`} data-field={field.id} type="number" value={field.value} min={field.min} max={field.max} step={field.step ?? 'any'} inputmode="decimal"/><span style="padding:12px 13px;border-left:1px solid #29475b;color:#d5e0e5">{field.unit}</span></div></div>)}
+  </div>
+  <div class="result-box" aria-live="polite">
+    <small>{resultLabel}</small>
+    <div class="result-value"><strong data-result>—</strong><span>{resultUnit}</span></div>
+    {secondaryLabel && <div style="margin-top:11px;color:var(--muted);font-size:.9rem"><span>{secondaryLabel}: </span><strong data-secondary style="color:var(--text)">—</strong> {secondaryUnit}</div>}
+  </div>
+</div>
+
+<script>
+  function initCalculator(root: HTMLElement) {
+    const kind = root.dataset.kind;
+    const get = (name: string) => Number((root.querySelector(`[data-field="${name}"]`) as HTMLInputElement)?.value || 0);
+    const result = root.querySelector('[data-result]') as HTMLElement;
+    const secondary = root.querySelector('[data-secondary]') as HTMLElement | null;
+    const fmt = (n: number, digits = 2) => Number.isFinite(n) ? n.toLocaleString('en-US', { maximumFractionDigits: digits }) : '—';
+    const calc = () => {
+      let r = NaN, s = NaN;
+      switch (kind) {
+        case 'cylinder-force': {
+          const bore = get('bore'), rod = get('rod'), p = get('pressure');
+          const pushArea = Math.PI * bore * bore / 4;
+          const pullArea = Math.PI * Math.max(0, bore * bore - rod * rod) / 4;
+          r = p * pushArea / 10000;
+          s = p * pullArea / 10000;
+          break;
+        }
+        case 'pump-flow': {
+          const d = get('displacement'), rpm = get('rpm'), eff = get('efficiency') / 100;
+          r = d * rpm / 1000 * eff;
+          s = d * rpm / 1000;
+          break;
+        }
+        case 'motor-rpm': {
+          const flow = get('flow'), d = get('displacement'), eff = get('efficiency') / 100;
+          r = d > 0 ? flow * 1000 * eff / d : NaN;
+          s = d > 0 ? flow * 1000 / d : NaN;
+          break;
+        }
+        case 'hydraulic-power': {
+          const p = get('pressure'), flow = get('flow'), eff = get('efficiency') / 100;
+          r = p * flow / 600;
+          s = r * eff;
+          break;
+        }
+        case 'motor-torque': {
+          const p = get('pressure'), d = get('displacement'), eff = get('efficiency') / 100;
+          r = p * d / (20 * Math.PI);
+          s = r * eff;
+          break;
+        }
+        case 'hose-velocity': {
+          const flow = get('flow'), idmm = get('id');
+          const area = Math.PI * Math.pow(idmm / 1000, 2) / 4;
+          r = area > 0 ? (flow / 60000) / area : NaN;
+          s = r * 3.28084;
+          break;
+        }
+        case 'cylinder-speed': {
+          const flow = get('flow'), bore = get('bore'), rod = get('rod');
+          const pushArea = Math.PI * bore * bore / 4;
+          const pullArea = Math.PI * Math.max(0, bore * bore - rod * rod) / 4;
+          r = pushArea > 0 ? flow * 16666.6667 / pushArea : NaN;
+          s = pullArea > 0 ? flow * 16666.6667 / pullArea : NaN;
+          break;
+        }
+        case 'pressure-converter': {
+          const bar = get('bar');
+          r = bar * 14.5037738;
+          s = bar * 0.1;
+          break;
+        }
+        case 'flow-converter': {
+          const lpm = get('lpm');
+          r = lpm * 0.264172052;
+          s = lpm * 0.06;
+          break;
+        }
+      }
+      result.textContent = fmt(r);
+      if (secondary) secondary.textContent = fmt(s);
+    };
+    root.querySelectorAll('input').forEach(input => input.addEventListener('input', calc));
+    calc();
+  }
+  document.querySelectorAll<HTMLElement>('.calculator[data-kind]').forEach(initCalculator);
+</script>

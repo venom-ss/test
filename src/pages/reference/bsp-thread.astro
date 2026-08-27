@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+const rows = [
+  ['G 1/8','9.728','28','0.907'],['G 1/4','13.157','19','1.337'],['G 3/8','16.662','19','1.337'],['G 1/2','20.955','14','1.814'],['G 5/8','22.911','14','1.814'],['G 3/4','26.441','14','1.814'],['G 1','33.249','11','2.309'],['G 1 1/4','41.910','11','2.309'],['G 1 1/2','47.803','11','2.309'],['G 2','59.614','11','2.309']
+];
+---
+<BaseLayout title="BSPP Thread Size Chart — G Threads" description="Field-friendly BSPP (G) thread reference with major diameter, threads per inch and pitch for common hydraulic fitting sizes.">
+  <div class="container"><div class="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#reference">Reference</a><span>/</span><strong>BSP thread chart</strong></div></div>
+  <section class="page-hero"><div class="container"><span class="eyebrow">Thread identification</span><h1 style="font-size:clamp(2.4rem,6vw,4.7rem);margin-top:12px">BSPP / G thread chart</h1><p class="lead">Measure the male thread outside diameter, then confirm pitch. BSP nominal size is not the same as the diameter you see on a caliper.</p></div></section>
+  <section class="section compact"><div class="container tool-shell"><div class="article">
+    <div class="note"><strong>Fast field check:</strong> a male thread measuring about 20.9 mm OD with 14 TPI is typically G 1/2. About 16.6 mm with 19 TPI points to G 3/8.</div>
+    <div class="table-wrap"><table><thead><tr><th>Designation</th><th>Male major Ø (mm)</th><th>TPI</th><th>Pitch (mm)</th></tr></thead><tbody>{rows.map(r => <tr>{r.map(c => <td>{c}</td>)}</tr>)}</tbody></table></div>
+    <h2>BSPP vs. BSPT</h2><p>BSPP is the parallel British pipe thread commonly designated with the letter G and standardized under ISO 228-1. BSPT uses a tapered thread form associated with ISO 7-1. Both use a 55° Whitworth thread profile, but their sealing method and geometry differ.</p>
+    <h2>How to identify in the workshop</h2><p>Clean the thread, measure across the crests of a male thread with a caliper, then use a pitch gauge to confirm TPI. Do not identify a port from outside diameter alone. Check whether the thread is parallel or tapered and inspect the sealing face, bonded-seal land or cone.</p>
+    <h2>Why nominal size looks wrong</h2><p>A 1/2-inch BSP thread does not measure 12.7 mm. The nominal pipe size is historical and is not the thread's actual outside diameter. That is why a G 1/2 male thread measures roughly 20.955 mm at its major diameter.</p>
+    <p class="muted" style="margin-top:28px;font-size:.82rem">Reference basis: ISO 228-1 thread form and common BSP dimensions. Verify tolerances and sealing arrangement against the component manufacturer before machining or final selection.</p>
+  </div><aside class="sidebar"><div class="side-card"><span class="badge">Field workflow</span><h3 style="margin-top:12px">Measure → pitch → seal</h3><p>Use all three clues. Similar outside diameters can belong to different thread families.</p></div><AdSlot /><div class="side-card"><h3>Next tool</h3><p>Use oil velocity to check whether a selected hose bore is sensible for the flow.</p><a href="/calculators/hose-velocity" style="display:inline-block;margin-top:10px;color:var(--accent-2);font-weight:800">Hose velocity →</a></div></aside></div></section>
+</BaseLayout>

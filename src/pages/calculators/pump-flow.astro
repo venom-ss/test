@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'displacement',label:'Pump displacement',unit:'cc/rev',value:32,min:0.1},{id:'rpm',label:'Shaft speed',unit:'rpm',value:1500,min:1},{id:'efficiency',label:'Volumetric efficiency',unit:'%',value:92,min:1,max:100}];
+---
+<ToolLayout title="Hydraulic Pump Flow Calculator" description="Calculate theoretical and estimated actual pump flow from displacement, shaft speed and volumetric efficiency." formula="Flow (L/min) = displacement (cc/rev) × speed (rpm) ÷ 1,000 × volumetric efficiency">
+  <Fragment slot="tool"><CalculatorForm kind="pump-flow" fields={fields} resultLabel="Estimated actual flow" resultUnit="L/min" secondaryLabel="Theoretical flow" secondaryUnit="L/min" /></Fragment>
+  <h2>What this calculation tells you</h2><p>Pump displacement tells you how much oil is moved per shaft revolution. Multiplying it by RPM gives theoretical flow; applying volumetric efficiency gives a more realistic estimate.</p><div class="note">Actual flow varies with oil viscosity, pressure, wear and pump design. Use manufacturer performance curves when final sizing depends on exact flow.</div><h2>Useful for quick checks</h2><p>This calculator is useful when identifying a pump, checking whether an existing pump can supply a cylinder or motor, or estimating expected flow at a known engine or PTO speed.</p>
+</ToolLayout>

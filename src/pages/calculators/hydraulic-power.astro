@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'pressure',label:'Pressure',unit:'bar',value:200,min:0},{id:'flow',label:'Flow',unit:'L/min',value:60,min:0},{id:'efficiency',label:'Overall efficiency',unit:'%',value:85,min:1,max:100}];
+---
+<ToolLayout title="Hydraulic Power Calculator" description="Calculate hydraulic power from pressure and flow, then estimate useful output after efficiency losses." formula="Hydraulic power (kW) = pressure (bar) × flow (L/min) ÷ 600">
+  <Fragment slot="tool"><CalculatorForm kind="hydraulic-power" fields={fields} resultLabel="Hydraulic input power" resultUnit="kW" secondaryLabel="Estimated useful output" secondaryUnit="kW" /></Fragment>
+  <h2>Pressure and flow together determine power</h2><p>Pressure without flow does not describe power, and flow without pressure does not either. Hydraulic power combines both and is a useful first check when sizing prime movers, pumps and motors.</p><div class="note">A real system also creates heat. The difference between input power and useful mechanical output is largely lost through inefficiency and pressure drops.</div><h2>Use it for sanity checks</h2><p>If a proposed motor or engine cannot supply the calculated hydraulic power with an adequate margin, the system will not sustain the requested pressure and flow simultaneously.</p>
+</ToolLayout>
