@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'flow',label:'Oil flow',unit:'L/min',value:60,min:0},{id:'id',label:'Hose inside diameter',unit:'mm',value:19,min:0.1}];
+---
+<ToolLayout title="Hydraulic Hose Oil Velocity Calculator" description="Calculate oil velocity in a hydraulic hose from flow rate and hose inside diameter." formula="Velocity = flow rate ÷ internal cross-sectional area">
+  <Fragment slot="tool"><CalculatorForm kind="hose-velocity" fields={fields} resultLabel="Oil velocity" resultUnit="m/s" secondaryLabel="Velocity" secondaryUnit="ft/s" /></Fragment>
+  <h2>Why oil velocity matters</h2><p>Hose size affects pressure loss, heat generation, noise and inlet conditions. A hose that is too small can create high velocity and excessive pressure drop even when its pressure rating is adequate.</p><div class="note">Acceptable velocity depends on line function, hose length, oil viscosity and equipment design. Suction lines typically need much lower velocity than pressure lines.</div><h2>Use ID, not dash number alone</h2><p>Enter the actual hose inside diameter where possible. Different hose constructions can have slightly different internal dimensions for the same nominal dash size.</p>
+</ToolLayout>

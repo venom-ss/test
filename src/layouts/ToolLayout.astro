@@ -1,0 +1,51 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  formula?: string;
+}
+const { title, description, eyebrow = 'Hydraulic calculator', formula } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: title,
+  description,
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Any',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+};
+---
+<BaseLayout title={title} description={description} schema={schema}>
+  <div class="container">
+    <div class="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#calculators">Calculators</a><span>/</span><strong>{title}</strong></div>
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">{eyebrow}</span>
+      <h1 style="font-size:clamp(2.4rem,6vw,4.6rem);margin-top:12px">{title}</h1>
+      <p class="lead">{description}</p>
+    </div>
+  </section>
+  <section class="section compact">
+    <div class="container tool-shell">
+      <div>
+        <div class="tool-card">
+          <slot name="tool" />
+          {formula && <div class="formula">Formula: {formula}</div>}
+        </div>
+        <AdSlot format="horizontal" />
+        <article class="article">
+          <slot />
+        </article>
+      </div>
+      <aside class="sidebar">
+        <div class="side-card"><span class="badge">Field note</span><h3 style="margin-top:12px">Theoretical vs. real-world</h3><p>Use the calculator as a starting point. Real systems include mechanical, volumetric and pressure losses.</p></div>
+        <AdSlot />
+        <div class="side-card"><h3>Need help identifying a part?</h3><p>Use the part-identification service page for a future paid photo/nameplate review workflow.</p><a href="/services" style="display:inline-block;margin-top:10px;color:var(--accent-2);font-weight:800">Part identification →</a></div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

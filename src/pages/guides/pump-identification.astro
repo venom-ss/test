@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+---
+<BaseLayout title="How to Identify a Hydraulic Pump" description="A practical checklist for identifying unknown hydraulic pumps from nameplate data, shaft, mounting flange, ports, displacement and rotation.">
+  <div class="container"><div class="breadcrumbs"><a href="/">Home</a><span>/</span><a href="/#guides">Guides</a><span>/</span><strong>Pump identification</strong></div></div>
+  <section class="page-hero"><div class="container"><span class="eyebrow">Component identification</span><h1 style="font-size:clamp(2.4rem,6vw,4.7rem);margin-top:12px">How to identify an unknown hydraulic pump</h1><p class="lead">The fastest route is to collect evidence in a fixed order: nameplate, pump type, mounting, shaft, ports, displacement clues and rotation.</p></div></section>
+  <section class="section compact"><div class="container tool-shell"><article class="article">
+    <h2>1. Photograph before removing anything</h2><p>Take clear photos of the complete pump, nameplate, shaft end, ports and how it is installed. Record the machine model and any readable stamped or cast numbers. A partial code can be enough when combined with dimensions.</p>
+    <h2>2. Identify the pump family</h2><p>Look for visual clues that distinguish external gear, internal gear, vane and piston pumps. The likely pump family changes what dimensions and ratings matter most when searching for a replacement.</p>
+    <h2>3. Measure the interface</h2><p>Record mounting-flange pilot diameter, bolt pattern, shaft type and dimensions, inlet/outlet thread or flange standard, and port positions. For splined shafts, count teeth and measure major diameter as accurately as possible.</p>
+    <div class="note">Never assume that two pumps with a similar body size interchange. Shaft standard, mounting pilot, rotation, displacement, port position and pressure capability all need to match the application.</div>
+    <h2>4. Estimate displacement only when necessary</h2><p>If a machine's known pump speed and measured flow are available, the pump-flow calculator can help estimate displacement. Treat the result as evidence, not as a substitute for manufacturer data.</p>
+    <p style="margin-top:22px"><a class="btn primary" href="/calculators/pump-flow">Open pump flow calculator →</a></p>
+    <h2>5. Confirm rotation from the shaft end</h2><p>Manufacturer rotation conventions must be read carefully. Record the viewed-from direction and confirm how the machine drives the pump before ordering a replacement.</p>
+  </article><aside class="sidebar"><div class="side-card"><span class="badge">Future service</span><h3 style="margin-top:12px">Photo-based identification</h3><p>This guide naturally feeds the paid identification service in the business model.</p><a href="/services" style="display:inline-block;margin-top:10px;color:var(--accent-2);font-weight:800">Service concept →</a></div><AdSlot /></aside></div></section>
+</BaseLayout>

@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'lpm',label:'Flow rate',unit:'L/min',value:60,min:0}];
+---
+<ToolLayout title="Hydraulic Flow Converter — L/min, GPM & m³/h" description="Convert hydraulic flow from litres per minute to US gallons per minute and cubic metres per hour." formula="1 L/min = 0.264172 US gpm = 0.06 m³/h">
+  <Fragment slot="tool"><CalculatorForm kind="flow-converter" fields={fields} resultLabel="Flow" resultUnit="US gpm" secondaryLabel="Flow" secondaryUnit="m³/h" /></Fragment>
+  <h2>Convert catalog flow data quickly</h2><p>Flow units vary between manufacturers and markets. This converter makes it easier to compare pump, valve, filter and motor data without doing the arithmetic manually.</p><div class="note">This tool uses US gallons. Imperial gallons are different and should not be substituted when matching equipment data.</div><h2>Practical comparison</h2><p>60 L/min is about 15.85 US gpm. 100 L/min is about 26.42 US gpm.</p>
+</ToolLayout>

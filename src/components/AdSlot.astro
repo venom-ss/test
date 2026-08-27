@@ -1,0 +1,7 @@
+---
+interface Props { format?: 'rectangle' | 'horizontal'; label?: string; }
+const { format = 'rectangle', label = 'Ad space — enable after AdSense approval' } = Astro.props;
+---
+<div class:list={["ad-slot", format === 'horizontal' && 'horizontal']} aria-label="Advertisement placeholder">
+  <span>{label}</span>
+</div>

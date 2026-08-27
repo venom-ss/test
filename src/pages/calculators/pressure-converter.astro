@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'bar',label:'Pressure',unit:'bar',value:210,min:0}];
+---
+<ToolLayout title="Pressure Converter — Bar, PSI & MPa" description="Convert hydraulic pressure from bar to psi and MPa instantly." formula="1 bar = 14.5038 psi = 0.1 MPa">
+  <Fragment slot="tool"><CalculatorForm kind="pressure-converter" fields={fields} resultLabel="Pressure" resultUnit="psi" secondaryLabel="Pressure" secondaryUnit="MPa" /></Fragment>
+  <h2>Common hydraulic pressure units</h2><p>European hydraulic documentation commonly uses bar, while many North American catalogs use psi. MPa is common in engineering specifications and some equipment manuals.</p><div class="note">Unit conversion does not change a component rating. Always compare working pressure, peak pressure and proof/burst values on the same basis.</div><h2>Useful reference</h2><p>As quick anchors: 100 bar is about 1,450 psi, 200 bar about 2,901 psi, and 350 bar about 5,076 psi.</p>
+</ToolLayout>

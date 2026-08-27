@@ -1,0 +1,9 @@
+---
+import ToolLayout from '../../layouts/ToolLayout.astro';
+import CalculatorForm from '../../components/CalculatorForm.astro';
+const fields = [{id:'pressure',label:'Pressure difference',unit:'bar',value:180,min:0},{id:'displacement',label:'Motor displacement',unit:'cc/rev',value:80,min:0.1},{id:'efficiency',label:'Mechanical efficiency',unit:'%',value:88,min:1,max:100}];
+---
+<ToolLayout title="Hydraulic Motor Torque Calculator" description="Estimate theoretical and efficiency-adjusted hydraulic motor torque from pressure difference and motor displacement." formula="Torque (N·m) = pressure (bar) × displacement (cc/rev) ÷ (20 × π)">
+  <Fragment slot="tool"><CalculatorForm kind="motor-torque" fields={fields} resultLabel="Theoretical torque" resultUnit="N·m" secondaryLabel="Estimated shaft torque" secondaryUnit="N·m" /></Fragment>
+  <h2>Torque comes mainly from pressure and displacement</h2><p>For the same pressure difference, a larger-displacement motor develops more torque per revolution. Mechanical efficiency reduces the torque that reaches the output shaft.</p><div class="note">Use pressure difference across the motor, not simply the pump relief setting. Return-line back pressure reduces the effective pressure difference.</div><h2>Do not ignore starting torque</h2><p>Some motor designs have noticeably different starting and running efficiency. For winches, conveyors and other high-starting-load applications, use the manufacturer's starting-torque data.</p>
+</ToolLayout>

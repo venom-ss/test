@@ -1,0 +1,61 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  image?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+}
+const {
+  title,
+  description,
+  canonical = Astro.url.pathname,
+  image = '/og-default.svg',
+  noindex = false,
+  schema
+} = Astro.props;
+const site = Astro.site ?? new URL('https://example.com');
+const canonicalUrl = new URL(canonical, site).toString();
+const imageUrl = new URL(image, site).toString();
+const fullTitle = title.includes('Hydraulic Toolbox') ? title : `${title} | Hydraulic Toolbox`;
+const defaultSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Hydraulic Toolbox',
+  url: site.toString(),
+  description: 'Practical hydraulic calculators, references and troubleshooting guides.'
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#07111c" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(defaultSchema)}></script>
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)}></script>}
+  </head>
+  <body>
+    <Header />
+    <main><slot /></main>
+    <Footer />
+  </body>
+</html>
