@@ -15,19 +15,20 @@ const {
   title,
   description,
   canonical = Astro.url.pathname,
-  image = '/og-default.svg',
+  image = '/test/og-default.svg',
   noindex = false,
   schema
 } = Astro.props;
-const site = Astro.site ?? new URL('https://example.com');
-const canonicalUrl = new URL(canonical, site).toString();
-const imageUrl = new URL(image, site).toString();
+const site = Astro.site ?? new URL('https://venom-ss.github.io');
+const withBase = (path: string) => path === '/test' || path.startsWith('/test/') ? path : path.startsWith('/') ? `/test${path}` : path;
+const canonicalUrl = new URL(withBase(canonical), site).toString();
+const imageUrl = new URL(withBase(image), site).toString();
 const fullTitle = title.includes('Hydraulic Toolbox') ? title : `${title} | Hydraulic Toolbox`;
 const defaultSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Hydraulic Toolbox',
-  url: site.toString(),
+  url: new URL('/test/', site).toString(),
   description: 'Practical hydraulic calculators, references and troubleshooting guides.'
 };
 ---
@@ -57,5 +58,15 @@ const defaultSchema = {
     <Header />
     <main><slot /></main>
     <Footer />
+    <script is:inline>
+      (() => {
+        const prefix = '/test';
+        document.querySelectorAll('a[href^="/"]').forEach((link) => {
+          const href = link.getAttribute('href');
+          if (!href || href.startsWith('//') || href === prefix || href.startsWith(prefix + '/')) return;
+          link.setAttribute('href', prefix + href);
+        });
+      })();
+    </script>
   </body>
 </html>
